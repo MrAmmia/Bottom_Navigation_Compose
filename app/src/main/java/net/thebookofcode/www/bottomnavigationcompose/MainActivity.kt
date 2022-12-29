@@ -3,14 +3,9 @@ package net.thebookofcode.www.bottomnavigationcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import net.thebookofcode.www.bottomnavigationcompose.screens.MainScreen
+import androidx.navigation.compose.rememberNavController
+import net.thebookofcode.www.bottomnavigationcompose.navigation.graphs.RootNavigationGraph
+import net.thebookofcode.www.bottomnavigationcompose.screens.home_screens.MainHomeScreen
 import net.thebookofcode.www.bottomnavigationcompose.ui.theme.BottomNavigationComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +14,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BottomNavigationComposeTheme {
                 // A surface container using the 'background' color from the theme
-                MainScreen()
+                RootNavigationGraph(navController = rememberNavController())
             }
         }
     }

@@ -1,4 +1,4 @@
-package net.thebookofcode.www.bottomnavigationcompose.screens
+package net.thebookofcode.www.bottomnavigationcompose.screens.home_screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,25 +12,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 
+
 @Composable
-fun HomeScreen(){
+fun SettingsScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Magenta),
+            .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "HOME",
+            text = "SETTINGS",
             fontSize = MaterialTheme.typography.h3.fontSize,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color.Black
         )
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun HomeScreenPreview(){
-    HomeScreen()
+fun SettingsScreenPreview(){
+    SettingsScreen()
 }

@@ -1,4 +1,4 @@
-package net.thebookofcode.www.bottomnavigationcompose.screens
+package net.thebookofcode.www.bottomnavigationcompose.screens.home_screens
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
@@ -10,40 +10,44 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import net.thebookofcode.www.bottomnavigationcompose.navigation.BottomBarScreen
-import net.thebookofcode.www.bottomnavigationcompose.navigation.ButtonNavGraph
+import net.thebookofcode.www.bottomnavigationcompose.navigation.HomeScreens
+import net.thebookofcode.www.bottomnavigationcompose.navigation.graphs.HomeNavGraph
 
 @Composable
-fun MainScreen(){
-    val navController = rememberNavController()
+fun MainHomeScreen(){
+    val navController:NavHostController = rememberNavController()
     Scaffold(bottomBar = { BottomBar(navController = navController)}) {
-        ButtonNavGraph(navController = navController)
+        HomeNavGraph(navController = navController)
     }
 }
 
 @Composable
 fun BottomBar(navController: NavHostController){
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Profile,
-        BottomBarScreen.Settings
+        HomeScreens.Home,
+        HomeScreens.Profile,
+        HomeScreens.Settings
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    
-    BottomNavigation {
-        screens.forEach { screen ->
-            AddItem(screen = screen,
-                currentDestination = currentDestination,
-                navController = navController
-            )
+
+    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+    if (bottomBarDestination){
+        BottomNavigation {
+            screens.forEach { screen ->
+                AddItem(screen = screen,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
         }
     }
+
 }
 
 @Composable
 fun RowScope.AddItem(
-    screen: BottomBarScreen,
+    screen: HomeScreens,
     currentDestination: NavDestination?,
     navController: NavHostController
 ){
@@ -61,7 +65,7 @@ fun RowScope.AddItem(
             it.route == screen.route
         } == true,
         // LocalContentColor can be found in the source code of BottomNavigationItem
-        // What we're doing is disabling the default unselected value whic is the same color but
+        // What we're doing is disabling the default unselected value which is the same color but
         // with an altered alpha /
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
